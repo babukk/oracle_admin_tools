@@ -5,20 +5,20 @@ import  getopt
 import  re
 
 try:
-      opts, args = getopt.getopt( sys.argv[1:], "hs:b:", ["help", "schema=", "backup-dir="] )
+      opts, args = getopt.getopt(sys.argv[1:], "hs:b:", ["help", "schema=", "backup-dir="])
 
 except:
-      sys.exit( 1 )
+      sys.exit(1)
 
 db_secrets = "C:\\bin\\Db\\oracle.pwl"
 
 
 # -------------------------------------------------------------------------------------------------
 
-def  GetDBcredentials( db_alias ):
+def  GetDBcredentials(db_alias):
 
-    file = open( db_secrets )
-    for  _line  in  iter( file ):
+    file = open(db_secrets)
+    for  _line  in  iter(file):
         mo_alias = re.match("\s*" + db_alias + "\s*=\s*", _line, re.IGNORECASE)
         if  mo_alias:
             # print  _line
@@ -38,8 +38,8 @@ def  GetDBcredentials( db_alias ):
 
 for  oo, a  in  opts:
     if   oo  in  ("-h", "--help"):
-        print( "usage: python .py process_list.py -s|--schema=SCHEMA -b|backup-dir=DIR" )
-        sys.exit( 0 )
+        print("usage: python .py process_list.py -s|--schema=SCHEMA -b|backup-dir=DIR")
+        sys.exit(0)
     elif  oo  in  ("-s", "--schema"):
         _schema = a
 
@@ -57,7 +57,7 @@ _schema, _pass, _db = GetDBcredentials(_schema)
 dump_file.write("------------------------------------------------------\n")
 dump_file.write("-- Export file for user " + _schema + "                      --\n")
 dump_file.write("------------------------------------------------------\n")
-dump_file.write("\nspool dump.log\n" )
+dump_file.write("\nspool dump.log\n")
 
 for  _line  in  sys.stdin.readlines():
     (_type, _name) = _line.split('\t')

@@ -9,7 +9,7 @@ try:
 
 except   ImportError, info:
     print  "Import Error:", info
-    sys.exit( 2 )
+    sys.exit(2)
 
 
 db_schema_alias = None
@@ -28,10 +28,10 @@ db_secrets = "C:\\bin\\Db\\oracle.pwl"
 
 # -------------------------------------------------------------------------------------------------
 
-def  GetDBcredentials( db_alias ):
+def  GetDBcredentials(db_alias):
 
-    file = open( db_secrets )
-    for  _line  in  iter( file ):
+    file = open(db_secrets)
+    for  _line  in  iter(file):
         mo_alias = re.match("\s*" + db_alias + "\s*=\s*", _line, re.IGNORECASE)
         if  mo_alias:
             # print  _line
@@ -49,16 +49,16 @@ def  GetDBcredentials( db_alias ):
 
 # -------------------------------------------------------------------------------------------------
 
-def  SaveData( o_type, o_name, o_operation, o_filename ):
+def  SaveData(o_type, o_name, o_operation, o_filename):
 
     print o_type, o_name, o_operation, o_filename
     # return
 
     _is_created = 0
 
-    sql = " SELECT  count(*)  FROM  user_objects  WHERE  object_name = upper( :name ) "
+    sql = " SELECT  count(*)  FROM  user_objects  WHERE  object_name = upper(:name) "
     curs = db_conn.cursor()
-    curs.execute(sql, name=o_name )
+    curs.execute(sql, name=o_name)
     row = curs.fetchone()
     if  row[0] == 0:
         _is_created = 1
@@ -79,10 +79,10 @@ def  SaveData( o_type, o_name, o_operation, o_filename ):
 
 # -------------------------------------------------------------------------------------------------
 
-def  ParseFile( fname ):
+def  ParseFile(fname):
 
-    file = open( fname )
-    for  _line  in  iter( file ):
+    file = open(fname)
+    for  _line  in  iter(file):
         obj_type = ""
         obj_name = ""
         obj_operation = None
@@ -138,7 +138,7 @@ def  ParseFile( fname ):
                 obj_operation = "DROP"
 
         if  obj_operation:
-            SaveData( obj_type, obj_name, obj_operation, fname )
+            SaveData(obj_type, obj_name, obj_operation, fname)
 
     file.close()
 
@@ -155,19 +155,19 @@ if __name__ == "__main__":
         cmd_file = open(str(sys.argv[1]))
     except:
         print  "Can not open cmd/sql-file: " + str(sys.argv[1])
-        sys.exit( 1)
+        sys.exit(1)
 
     db_schema_alias = str(sys.argv[2])
 
-    db_schema, db_pass, db_tns = GetDBcredentials( db_schema_alias )
+    db_schema, db_pass, db_tns = GetDBcredentials(db_schema_alias)
 
 
-    db_conn = cx_Oracle.connect( db_schema, db_pass, db_tns )
+    db_conn = cx_Oracle.connect(db_schema, db_pass, db_tns)
 
     os_username = getpass.getuser()
-    mo_patch = re.search( r"(.*)\\(\d*)[\-\_](\d*)(.*)", os.path.abspath(os.path.join(os.pardir)) )
+    mo_patch = re.search(r"(.*)\\(\d*)[\-\_](\d*)(.*)", os.path.abspath(os.path.join(os.pardir)))
     if  not mo_patch:
-        mo_patch = re.search( r"(.*)\\(\d*)[\-\_](\d*)(.*)", os.path.abspath(os.path.join(os.pardir) + "/../") )
+        mo_patch = re.search(r"(.*)\\(\d*)[\-\_](\d*)(.*)", os.path.abspath(os.path.join(os.pardir) + "/../"))
 
 
     patch_number = mo_patch.group(2) + "-" + mo_patch.group(3)
