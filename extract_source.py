@@ -15,9 +15,6 @@ except   ImportError, info:
     sys.exit(2)
 
 
-
-# -------------------------------------------------------------------------------------------------------
-
 def  extract_view(_conn, _obj_name):
 
     _cursor = _conn.cursor()
@@ -36,8 +33,6 @@ def  extract_view(_conn, _obj_name):
         print  ";"
         print  "/"
 
-
-# -------------------------------------------------------------------------------------------------------
 
 def  extract_source(_conn, _obj_type, _obj_name):
 
@@ -65,8 +60,6 @@ def  extract_source(_conn, _obj_type, _obj_name):
         print  "/"
 
 
-
-# -------------------------------------------------------------------------------------------------------
 
 def  main():
 
@@ -110,7 +103,6 @@ def  main():
     else:
         extract_source(_conn = conn, _obj_type = obj_type, _obj_name = obj_name)
 
-# =======================================================================================================
 
 if   __name__ == "__main__":
     main()
