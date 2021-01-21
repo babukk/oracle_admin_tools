@@ -1,6 +1,4 @@
-#! /usr/bin/env python
-#------------------------------------------------------
-
+#!/usr/bin/env python
 
 import sys, re, getpass, os.path
 
@@ -26,8 +24,6 @@ patch_number = None
 db_secrets = "C:\\bin\\Db\\oracle.pwl"
 
 
-# -------------------------------------------------------------------------------------------------
-
 def  GetDBcredentials(db_alias):
 
     file = open(db_secrets)
@@ -46,8 +42,6 @@ def  GetDBcredentials(db_alias):
 
             return  db_schema, db_pass, db_tns
 
-
-# -------------------------------------------------------------------------------------------------
 
 def  SaveData(o_type, o_name, o_operation, o_filename):
 
@@ -76,8 +70,6 @@ def  SaveData(o_type, o_name, o_operation, o_filename):
     db_conn.commit()
     curs.close()
 
-
-# -------------------------------------------------------------------------------------------------
 
 def  ParseFile(fname):
 
@@ -145,11 +137,7 @@ def  ParseFile(fname):
     return
 
 
-
-# ------------------------------------------------------------------------------------------------------------
-
 if __name__ == "__main__":
-
 
     try:
         cmd_file = open(str(sys.argv[1]))
@@ -158,9 +146,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     db_schema_alias = str(sys.argv[2])
-
     db_schema, db_pass, db_tns = GetDBcredentials(db_schema_alias)
-
 
     db_conn = cx_Oracle.connect(db_schema, db_pass, db_tns)
 
@@ -169,9 +155,7 @@ if __name__ == "__main__":
     if  not mo_patch:
         mo_patch = re.search(r"(.*)\\(\d*)[\-\_](\d*)(.*)", os.path.abspath(os.path.join(os.pardir) + "/../"))
 
-
     patch_number = mo_patch.group(2) + "-" + mo_patch.group(3)
-
 
     ParseFile(str(sys.argv[1]))
 
