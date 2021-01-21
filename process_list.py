@@ -13,8 +13,6 @@ except:
 db_secrets = "C:\\bin\\Db\\oracle.pwl"
 
 
-# -------------------------------------------------------------------------------------------------
-
 def  GetDBcredentials(db_alias):
 
     file = open(db_secrets)
@@ -33,8 +31,6 @@ def  GetDBcredentials(db_alias):
 
             return  db_schema, db_pass, db_tns
 
-
-# -------------------------------------------------------------------------------------------------
 
 for  oo, a  in  opts:
     if   oo  in  ("-h", "--help"):
