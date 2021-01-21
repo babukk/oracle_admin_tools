@@ -9,10 +9,8 @@ except   ImportError, info:
     print  "Import Error:", info
     sys.exit(2)
 
-
 db_schema_alias = None
 cmd_file = None
-
 
 db_schema = None
 db_conn = None
@@ -25,7 +23,6 @@ db_secrets = "C:\\bin\\Db\\oracle.pwl"
 
 
 def  GetDBcredentials(db_alias):
-
     file = open(db_secrets)
     for  _line  in  iter(file):
         mo_alias = re.match("\s*" + db_alias + "\s*=\s*", _line, re.IGNORECASE)
@@ -113,7 +110,6 @@ def  ParseFile(fname):
                 obj_name = mo_type.group(2).upper().strip(' \t\n\r')
                 # print  "create ---> " + obj_type + "| ---> |" + obj_name + "|"
                 obj_operation = "CREATE"
-
         else:
             mo_alter = re.match("\s*alter\s*(\w+)\s*(\w+)\s*", _line, re.IGNORECASE)
             if  mo_alter:
@@ -133,12 +129,10 @@ def  ParseFile(fname):
             SaveData(obj_type, obj_name, obj_operation, fname)
 
     file.close()
-
     return
 
 
 if __name__ == "__main__":
-
     try:
         cmd_file = open(str(sys.argv[1]))
     except:
